@@ -12,11 +12,11 @@ router.get('/', (req, res, next) => {
 router.get('/customers/:id', (req, res, next) => {
   const getId = req.params['id'];
   console.log('id >>>>', getId);
-  res.render('index', { title: 'Express' });
+  res.render('index', );
 });
 
 router.post('/', upload.none(), async(req, res) => {
-  console.log(req.body.product);
+  console.log(req.body);
   const result = await creteNewProduct(req.body);
   res.send(`hello ${req.body.customer}`);
 });

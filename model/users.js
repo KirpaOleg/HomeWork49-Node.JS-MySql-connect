@@ -23,16 +23,32 @@ const creteNewProduct = async (order) => {
     const query = `
     INSERT orders(customer_id, product)
     VALUES ('${customer}', '${product}')`;
-    const [rows, fields] = await connection.execute(query);  
+    const [row, fields] = await connection.execute(query);  
     connection.end();
-    return rows;
+    return row;
   } catch (err) {
     console.log(err);
     connection.end();
   }
 }
 
+const getQuery = async () => {
+  try {
+    const connection = await mysql.createConnection(config);
+    console.log('CONNECT SELECT QUERY >>>');
+    const query = `SELECT * FROM CUSTOMERS NATURAL JOIN orders`;
+    const [row, fields] = await connection.execute(query);
+    console.log('RESULT >>>>', row);
+    connection.end();
+    return row;
+  } catch (err) {
+    console.log(err);
+    connection.end();
+  } 
+}
+
 module.exports = {
   getAllCustomers: getAllCustomers,
   creteNewProduct: creteNewProduct, 
+  getQuery: getQuery
 }
